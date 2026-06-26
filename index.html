@@ -803,6 +803,7 @@
       background: rgba(255,255,255,0.02);
       border-top: 1px solid rgba(255,255,255,0.08);
       border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding: var(--space-8) 0;
     }
 
     .clients .container {
@@ -1334,38 +1335,29 @@
       height: 330px;
     }
 
-    .process-card-img {
-      display: block;
-      max-height: 120px;
-      max-width: 100%;
-      width: auto;
-      object-fit: contain;
-      margin: 0 auto 16px;
-    }
-
     /* Cards are absolute, all occupying the same space */
     .process-card {
       position: absolute;
       inset: 0;
       display: flex;
-      flex-direction: column;
-      gap: 0;
-      padding: 28px 24px;
+      flex-direction: row;
+      gap: 20px;
+      align-items: center;
+      padding: 32px 28px;
       border-radius: var(--radius-lg);
-      border: 1px solid rgba(255,255,255,0.05);
-      background: linear-gradient(135deg, rgba(243,57,10,0.03), rgba(9,5,4,0));
+      border: 1px solid rgba(255,255,255,0.07);
+      background: rgba(255,255,255,0.03);
       opacity: 0;
       transform: translateY(18px);
-      transition: opacity 0.55s ease-out, transform 0.55s ease-out, border-color 0.4s ease-out, background 0.4s ease-out, box-shadow 0.4s ease-out;
+      transition: opacity 0.55s ease-out, transform 0.55s ease-out, border-color 0.4s ease-out, box-shadow 0.4s ease-out;
       pointer-events: none;
     }
 
     .process-card.is-active {
       opacity: 1;
       transform: translateY(0);
-      border-color: rgba(243,57,10,0.45);
-      background: linear-gradient(135deg, rgba(243,57,10,0.1), rgba(9,5,4,0));
-      box-shadow: 0 0 0 1px rgba(243,57,10,0.08);
+      border-color: rgba(243,57,10,0.35);
+      box-shadow: 0 8px 32px rgba(243,57,10,0.08);
       pointer-events: auto;
     }
 
@@ -1375,28 +1367,26 @@
       transform: translateY(-18px);
     }
 
-    .process-card-header {
-      display: flex;
-      align-items: baseline;
-      gap: 8px;
-      margin-bottom: 6px;
+    .process-card-content {
+      flex: 1;
+      min-width: 0;
     }
 
     .process-card-num {
-      font-family: 'Inter', sans-serif;
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 0.12em;
+      font-family: 'Satoshi', sans-serif;
+      font-size: 54px;
+      font-weight: 800;
+      line-height: 1;
       color: var(--color-primary);
-      flex-shrink: 0;
+      margin-bottom: 8px;
     }
 
     .process-card-title {
       font-family: 'Satoshi', sans-serif;
-      font-size: clamp(18px, 2vw, 24px);
+      font-size: clamp(20px, 2.2vw, 26px);
       font-weight: 700;
       color: var(--color-light);
-      margin-bottom: 8px;
+      margin-bottom: 10px;
       line-height: 1.2;
     }
 
@@ -1404,6 +1394,35 @@
       font-size: 15px;
       line-height: 1.65;
       color: var(--color-support);
+    }
+
+    /* Floating icon bubbles */
+    .process-icon-bubbles {
+      position: relative;
+      width: 130px;
+      height: 200px;
+      flex-shrink: 0;
+    }
+
+    .process-icon-bubble {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(243,57,10,0.08);
+      border: 1px solid rgba(243,57,10,0.2);
+      color: var(--color-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .pib-a { width: 54px; height: 54px; top: 18px; left: 38px; animation: floatBubble 4s ease-in-out infinite; }
+    .pib-b { width: 40px; height: 40px; top: 92px; left: 4px; animation: floatBubble 3.5s ease-in-out 0.8s infinite; }
+    .pib-c { width: 36px; height: 36px; top: 120px; right: 4px; animation: floatBubble 4.5s ease-in-out 1.4s infinite; }
+
+    @keyframes floatBubble {
+      0%, 100% { transform: translateY(0); }
+      40%       { transform: translateY(-9px); }
+      70%       { transform: translateY(-4px); }
     }
 
     .process-progress {
@@ -1480,7 +1499,12 @@
         transform: translateY(14px);
         margin-bottom: 0;
         pointer-events: auto;
+        flex-direction: column;
+        align-items: flex-start;
       }
+
+      .process-icon-bubbles { display: none; }
+      .process-card-num { font-size: 40px; }
 
       .process-card.is-active {
         opacity: 1;
@@ -2224,6 +2248,7 @@
         <div class="clients-list" role="list">
           <div class="client-logo" role="listitem"><img src="./logo-azo.png" alt="Azo" /></div>
           <div class="client-logo" role="listitem"><img src="./logo-quattrus.png" alt="Quattrus" /></div>
+          <div class="client-logo" role="listitem"><img src="./logo-carteira-advisor.svg" alt="Carteira Advisor" /></div>
         </div>
       </div>
     </section>
@@ -2461,57 +2486,81 @@
             <div class="process-cards-stage" id="process-cards">
 
               <div class="process-card" data-phase="0">
-                <img class="process-card-img" src="raiz.png" alt="Raiz">
-                <div class="process-card-header">
+                <div class="process-card-content">
                   <div class="process-card-num">01</div>
                   <div class="process-card-title">Raiz</div>
+                  <div class="process-card-desc">Diagnóstico profundo do produto, do usuário e do mercado. Aqui a gente descobre o que realmente precisa ser resolvido.</div>
                 </div>
-                <div class="process-card-desc">Diagnóstico profundo do produto, do usuário e do mercado. Aqui a gente descobre o que realmente precisa ser resolvido.</div>
+                <div class="process-icon-bubbles" aria-hidden="true">
+                  <div class="process-icon-bubble pib-a"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg></div>
+                  <div class="process-icon-bubble pib-b"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 10-16 0"/></svg></div>
+                  <div class="process-icon-bubble pib-c"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg></div>
+                </div>
               </div>
 
               <div class="process-card" data-phase="1">
-                <img class="process-card-img" src="prova.png" alt="Prova">
-                <div class="process-card-header">
+                <div class="process-card-content">
                   <div class="process-card-num">02</div>
                   <div class="process-card-title">Prova</div>
+                  <div class="process-card-desc">Validação de hipóteses antes de qualquer pixel. Só avançamos quando há evidência — não quando há achismo.</div>
                 </div>
-                <div class="process-card-desc">Validação de hipóteses antes de qualquer pixel. Só avançamos quando há evidência — não quando há achismo.</div>
+                <div class="process-icon-bubbles" aria-hidden="true">
+                  <div class="process-icon-bubble pib-a"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M9 12l2 2 4-4"/></svg></div>
+                  <div class="process-icon-bubble pib-b"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/></svg></div>
+                  <div class="process-icon-bubble pib-c"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+                </div>
               </div>
 
               <div class="process-card" data-phase="2">
-                <img class="process-card-img" src="esqueleto.png" alt="Esqueleto">
-                <div class="process-card-header">
+                <div class="process-card-content">
                   <div class="process-card-num">03</div>
                   <div class="process-card-title">Esqueleto</div>
+                  <div class="process-card-desc">Arquitetura de informação e fluxos que fazem sentido para quem usa. O produto começa a tomar forma com intenção.</div>
                 </div>
-                <div class="process-card-desc">Arquitetura de informação e fluxos que fazem sentido para quem usa. O produto começa a tomar forma com intenção.</div>
+                <div class="process-icon-bubbles" aria-hidden="true">
+                  <div class="process-icon-bubble pib-a"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 2l10 5-10 5L2 7z"/><path d="M2 12l10 5 10-5"/><path d="M2 17l10 5 10-5"/></svg></div>
+                  <div class="process-icon-bubble pib-b"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></div>
+                  <div class="process-icon-bubble pib-c"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+                </div>
               </div>
 
               <div class="process-card" data-phase="3">
-                <img class="process-card-img" src="superficie.png" alt="Superfície">
-                <div class="process-card-header">
+                <div class="process-card-content">
                   <div class="process-card-num">04</div>
                   <div class="process-card-title">Superfície</div>
+                  <div class="process-card-desc">Interface visual alinhada à marca e ao comportamento real do usuário. Bonito porque funciona — não o contrário.</div>
                 </div>
-                <div class="process-card-desc">Interface visual alinhada à marca e ao comportamento real do usuário. Bonito porque funciona — não o contrário.</div>
+                <div class="process-icon-bubbles" aria-hidden="true">
+                  <div class="process-icon-bubble pib-a"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+                  <div class="process-icon-bubble pib-b"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg></div>
+                  <div class="process-icon-bubble pib-c"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg></div>
+                </div>
               </div>
 
               <div class="process-card" data-phase="4">
-                <img class="process-card-img" src="prova-de-fogo.png" alt="Prova de Fogo">
-                <div class="process-card-header">
+                <div class="process-card-content">
                   <div class="process-card-num">05</div>
                   <div class="process-card-title">Prova de Fogo</div>
+                  <div class="process-card-desc">Testes com usuários reais antes do lançamento. O que não funciona, a gente descobre aqui — não depois.</div>
                 </div>
-                <div class="process-card-desc">Testes com usuários reais antes do lançamento. O que não funciona, a gente descobre aqui — não depois.</div>
+                <div class="process-icon-bubbles" aria-hidden="true">
+                  <div class="process-icon-bubble pib-a"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+                  <div class="process-icon-bubble pib-b"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M17 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><polyline points="16 11 18 13 22 9"/></svg></div>
+                  <div class="process-icon-bubble pib-c"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+                </div>
               </div>
 
               <div class="process-card" data-phase="5">
-                <img class="process-card-img" src="pulso.png" alt="Pulso">
-                <div class="process-card-header">
+                <div class="process-card-content">
                   <div class="process-card-num">06</div>
                   <div class="process-card-title">Pulso</div>
+                  <div class="process-card-desc">Monitoramento pós-entrega. O design continua sendo acompanhado para garantir que o produto evolui com os usuários.</div>
                 </div>
-                <div class="process-card-desc">Monitoramento pós-entrega. O design continua sendo acompanhado para garantir que o produto evolui com os usuários.</div>
+                <div class="process-icon-bubbles" aria-hidden="true">
+                  <div class="process-icon-bubble pib-a"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+                  <div class="process-icon-bubble pib-b"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>
+                  <div class="process-icon-bubble pib-c"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg></div>
+                </div>
               </div>
 
             </div>
